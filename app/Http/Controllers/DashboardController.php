@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class DashboardController extends Controller
 {
@@ -23,6 +24,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $user_id = auth()->user()->id; //Get the ID the Authenticated user
+        $user = User::find($user_id);
+        // dd($user);
+        //$user->listing : accessing the relationship
+        return view('dashboard')->with('listings',$user->listing);
     }
 }
